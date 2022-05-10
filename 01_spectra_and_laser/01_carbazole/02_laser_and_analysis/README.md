@@ -2,7 +2,10 @@
 
 We will use a laser perturbation in tune with the lowest energy
 transition of the molecule in order to study the photodynamic 
-process of absorption in this transition.
+process of absorption in this transition. In order to do this, we
+need to know the energy corresponding to the lower energy transition of
+the molecule (look for it in the spectrum ploted in the previous calculation)
+and calculate the direction of maximal polarization of the transition.  
 
 1) Based on the spectrum calculated previously, calculate the
 direction of maximal polarization of the lowest energy transition 
@@ -45,5 +48,20 @@ the dynamic.
     which curves are increasing during the dynamic. These are the orbitals
     being populated.
 
-5) Let's plot those orbitals using `waveplot`
-  
+5) Let's generate those orbitals using `waveplot`
+ 
+  - Look at the `waveplot_in.hsdi_` template for the input for waveplot:
+    - Which files needs this input to run?
+    - On which orbitals are we interested?
+  - After editing and completing his file, just copy it to `waveplot_in.hsd`and run 
+  waveplot using your current installed version that probably is at:
+
+  `$HOME/dftbplus/_build/app/waveplot/waveplot'
+
+  - After running waveplot, a number of files would be generated starting with "wp-1-1"
+
+6) Let's plot those orbitals using VMD:
+
+  - Open the HOMO and LUMO cube files and plot them as an isosurface using the 
+  graphical representations options giving by VMD.
+  (For a tutorial on the [Basics of VMD](https://www.ks.uiuc.edu/Training/SumSchool/materials/sources/tutorials/01-vmd-tutorial/html/node2.html) and/or the [isosurface](https://www.ks.uiuc.edu/Research/vmd/current/ug/node77.html) method please refer to the links.

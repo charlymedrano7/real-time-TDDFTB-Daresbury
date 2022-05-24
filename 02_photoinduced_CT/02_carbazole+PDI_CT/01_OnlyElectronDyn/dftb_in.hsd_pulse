@@ -28,6 +28,9 @@ Hamiltonian = DFTB {
                                           #for the energy of interest
 	LaserEnergy [nm] = 532.66
 	}
+     EnvelopeShape = Sin2{
+        Time1 [fs] = 30.0
+     }
      FieldStrength [v/a] = 0.02
      WriteEnergyAndCharges = Yes
      WriteFrequency = 50

@@ -21,21 +21,20 @@ Hamiltonian = DFTB {
 }
 
  ElectronDynamics = {
-     Steps = 16700              # 16700*0.2*0.024  = 80 fs total time
+     Steps = 16700                   # 16700*0.2*0.024  = 80 fs total time
      TimeStep [au] = 0.2
      Perturbation = Laser{
          PolarizationDirection = 1 0 0
          LaserEnergy [nm] = 326.0
-         # VERY IMPORTANT: Phase must be present
-         Phase = 0
+         Phase = 0                   # VERY IMPORTANT: Phase must be present
      }
      EnvelopeShape = Sin2 {
-       Time1 [fs] = 8.0       # T = 1.08742 fs
+       Time1 [fs] = 8.0              # T = 1.08742 fs
      }
      FieldStrength [v/a] = 0.01
      Pump = Yes
-     PumpProbeFrames = 8      # 1 probe every 4 fs
-     PumpProbeRange [fs] = 8.0 40.0  #delay times will cover a range of 32 fs
+     PumpProbeFrames = 8             # 1 probe every 4 fs
+     PumpProbeRange [fs] = 8.0 40.0  # delay times will cover a range of 32 fs
  }
 
 

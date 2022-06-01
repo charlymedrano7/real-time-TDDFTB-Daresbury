@@ -93,7 +93,7 @@ def runfft(mu, time, damp, cutoff=None):
     return cutspec(freqev, spec, cutoff)
 
 # GS_spectrum
-os.chdir(ROOT+'/gs_spectrum')
+os.chdir(ROOT+'gs_spectrum')
 time, mux, muy, muz = loaddata(nsteps_spec)
 ave = (mux-mux[0]+muy-muy[0]+muz-muz[0])/3.
 time = time[:nsteps_spec]
@@ -102,10 +102,10 @@ spec0 = fft0.imag * freq0 * (-2./np.pi)
 
 #np.savetxt(ROOT+'real_fft_0.dat', fft0.real)
 #np.savetxt(ROOT+'imag_fft_0.dat', fft0.imag)
-np.savetxt(ROOT+'/gs_spectrum.dat', spec0)
+np.savetxt(ROOT+'gs_spectrum.dat', spec0)
 
 for phase_idx in range(args.nphases):
-    PHASE_DIR = ROOT+'/phase_{}/'.format(phase_idx)
+    PHASE_DIR = ROOT+'phase_{}/'.format(phase_idx)
     mupump = np.genfromtxt(PHASE_DIR+'mu.dat')
     mupumpx = mupump[:, 1]
     mupumpy = mupump[:, 2]
@@ -137,7 +137,7 @@ for phase_idx in range(args.nphases):
         time = time[:nsteps_spec]
         freq, spec = runfft(ave, time, damping, cutoff_freq)
         specs[frame, :] = spec.imag * freq * (-2./np.pi)
-    np.savetxt(ROOT+'/spectra_ph{}.dat'.format(phase_idx), specs)
+    np.savetxt(ROOT+'spectra_ph{}.dat'.format(phase_idx), specs)
 
-np.savetxt(ROOT+'/delaytime.dat', dltime)
-np.savetxt(ROOT+'/energy.dat', freq)
+np.savetxt(ROOT+'delaytime.dat', dltime)
+np.savetxt(ROOT+'energy.dat', freq)

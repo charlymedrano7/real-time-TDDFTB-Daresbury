@@ -1,8 +1,8 @@
 pumpdirs=$(ls -d phase_*)
 
-DFTB_PATH=~/dftb_timeprop/_build/_install/bin/dftb+ 
+DFTB_PATH=/Users/charly/dftbplus/_build/app/dftb+/dftb+ 
 nFrames=$(ls phase_0/pump_frames/*ppdump.bin | wc -l)
-let nOk=$nFrames-1
+((nOk = $nFrames -1))
 
 echo $nFrames "frames will be used"
 
@@ -29,7 +29,7 @@ done
 echo "Running GS spectrum"
 #run GS spectrum
 cd gs_spectrum
-sed -i '/[[:blank:]]Probe = Yes/d' dftb_in.hsd
+sed '/[[:blank:]]Probe = Yes/d' ../dftb_in.hsd_probe > dftb_in.hsd
 $DFTB_PATH >& out.log
 cd ..
 

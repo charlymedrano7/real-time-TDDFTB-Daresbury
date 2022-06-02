@@ -1,7 +1,7 @@
 nphases=4
 pi=3.141592653589793
 
-DFTB_PATH=~/dftb_timeprop/_build/_install/bin/dftb+
+DFTB_PATH=/Users/charly/dftbplus/_build/app/dftb+/dftb+
 
 for i in $(seq 1 $nphases); do
   let ii=$i-1

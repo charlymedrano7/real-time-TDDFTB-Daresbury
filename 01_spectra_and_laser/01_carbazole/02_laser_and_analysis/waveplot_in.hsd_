@@ -1,9 +1,6 @@
 # General options
 
 Options {
-  TotalChargeDensity = Yes           # Total density be plotted?
-  TotalChargeDifference = Yes        # Total density difference plotted?
-  ChargeDensity = Yes                # Charge density for each state?
   RealComponent = Yes                # Plot real component of the wavefunction
   PlottedSpins = 1 -1
   PlottedLevels =                    ### Levels (Orbitals) to plot

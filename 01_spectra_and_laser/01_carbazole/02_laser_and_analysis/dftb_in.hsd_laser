@@ -23,21 +23,20 @@ Hamiltonian = DFTB {
  ElectronDynamics = {
      Steps = 10000
      TimeStep [au] = 0.2
-     Perturbation = Laser{                #Laser type perturbation
-         PolarizationDirection =          #calculate with calc_timeprop_maxpoldir
-     }                                    #for the energy of interest
+     Perturbation = Laser{                # Laser type perturbation
+         PolarizationDirection =          # calculate with calc_timeprop_maxpoldir
+         LaserEnergy [ev] =               # energy of interest 
+     }                                    
      FieldStrength [v/a] = 0.001
-     WriteEnergyAndCharges = Yes
-     WriteFrequency = 50
-     Populations = Yes                    #to write populations during dynamic
+     Populations = Yes                    # to write populations during dynamic
  }
 
 Options {
-    WriteDetailedXML = Yes                #needed for waveplot
+    WriteDetailedXML = Yes                # needed for waveplot
 }
 
 Analysis {
-    WriteEigenvectors = Yes               #needed for waveplot
+    WriteEigenvectors = Yes               # needed for waveplot
 }
 
 

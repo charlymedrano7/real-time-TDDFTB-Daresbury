@@ -24,7 +24,7 @@ Hamiltonian = DFTB {
      Steps = 20000
      TimeStep [au] = 0.2
      Perturbation = Laser{
-        PolarizationDirection = -1 0 0    #calculate with calc_timeprop_maxpoldir
+        PolarizationDirection = 1 0 0    #calculate with calc_timeprop_maxpoldir
                                           #for the energy of interest
 	LaserEnergy [nm] = 532.66
 	}
@@ -32,9 +32,6 @@ Hamiltonian = DFTB {
         Time1 [fs] = 30.0
      }
      FieldStrength [v/a] = 0.02
-     WriteEnergyAndCharges = Yes
-     WriteFrequency = 50
-     Populations = Yes
  }
 
 Options {
@@ -47,10 +44,4 @@ Analysis {
 
 InputVersion = 21.2
 
-
-Parallel {
-  # Allow OMP threads explicitely to test for hybrid parallelisation with
-  # MPI-binary. (Check the manual before using this in production runs!)
-  UseOmpThreads = Yes
-}
 

@@ -33,7 +33,6 @@ Hamiltonian = DFTB {
      }
      FieldStrength [v/a] = 0.02
      WriteEnergyAndCharges = Yes
-     WriteFrequency = 50
      Populations = Yes
  }
 

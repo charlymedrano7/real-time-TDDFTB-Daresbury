@@ -50,7 +50,7 @@ generated. This file contains the populations projected on the GS orbitals durin
   - Look at the `waveplot_in.hsd_` template input file for waveplot:
     - Which files are needed?
     - In which orbitals are we interested?
-  - After editing and completing his file, just rename it to `waveplot_in.hsd` and run 
+  - After editing and completing this file, just rename it to `waveplot_in.hsd` and run 
   waveplot using your current installed version that probably is at:
 
   `$HOME/dftbplus/_build/app/waveplot/waveplot'

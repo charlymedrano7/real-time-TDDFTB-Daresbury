@@ -1,6 +1,7 @@
 pumpdirs=$(ls -d phase_*)
 
-DFTB_PATH=/Users/charly/dftbplus/_build/app/dftb+/dftb+ 
+#DFTB_PATH=/Users/charly/dftbplus/_build/app/dftb+/dftb+ 
+DFTB_PATH=/home/bonafefr/dftb_timeprop/_build/_install/bin/dftb+
 nFrames=$(ls phase_0/pump_frames/*ppdump.bin | wc -l)
 ((nOk = $nFrames -1))
 

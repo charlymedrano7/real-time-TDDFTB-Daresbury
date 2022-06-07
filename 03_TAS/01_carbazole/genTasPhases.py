@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import numpy as np
 import os
 from scipy import constants
@@ -18,6 +20,7 @@ if args.pref:
 else:
     ROOT = os.getcwd()
 
+print('ROOT', ROOT)
 PHASE_DIR = ROOT+'/phase_0/'
 
 #General parameters
@@ -42,7 +45,7 @@ for ll in pumpfile:
         print ('number of steps pump = {}'.format(nsteps_pump))
     if "timestep" in ll_lowercase:
         dt = float(ll.split()[3])*0.024188 # fs
-        print ('number of steps pump = {:.4f}'.format(dt))
+        print ('timestep = {:.4f}'.format(dt))
     if "pumpprobeframes" in ll_lowercase:
         nppframes = int(ll.split()[2])
         print ('number of pump probe frames = {}'.format(nppframes))
@@ -63,7 +66,7 @@ for ll in probefile:
         nsteps_spec = int(ll.split()[2])
         print ('number of steps probe = {}'.format(nsteps_spec))
 
-damping = 10 #1/fs
+damping = 7 #1/fs
 cutoff_freq = 8 # eV
 steps_ini = int(probe_ini/dt)
 steps_fin = int(probe_fin/dt)
@@ -77,7 +80,7 @@ def loaddata(nlines, onlyx=False):
     mux = np.loadtxt('mux.dat')
     muy = np.loadtxt('muy.dat')
     muz = np.loadtxt('muz.dat')
-    return mux[:nlines,0], mux[:nlines,1], muy[:nlines,2], muz[:nlines,3]
+    return mux[:,0], mux[:,1], muy[:,2], muz[:,3]
 
 def cutspec(freqev, spec, cutoff_freq=None):
     if cutoff_freq is None:    
@@ -93,19 +96,15 @@ def runfft(mu, time, damp, cutoff=None):
     return cutspec(freqev, spec, cutoff)
 
 # GS_spectrum
-os.chdir(ROOT+'gs_spectrum')
+os.chdir(ROOT+'/gs_spectrum')
 time, mux, muy, muz = loaddata(nsteps_spec)
 ave = (mux-mux[0]+muy-muy[0]+muz-muz[0])/3.
-time = time[:nsteps_spec]
 freq0, fft0 = runfft(ave, time, damping, cutoff_freq)
 spec0 = fft0.imag * freq0 * (-2./np.pi)
-
-#np.savetxt(ROOT+'real_fft_0.dat', fft0.real)
-#np.savetxt(ROOT+'imag_fft_0.dat', fft0.imag)
-np.savetxt(ROOT+'gs_spectrum.dat', spec0)
+np.savetxt(ROOT+'/gs_spectrum.dat', spec0)
 
 for phase_idx in range(args.nphases):
-    PHASE_DIR = ROOT+'phase_{}/'.format(phase_idx)
+    PHASE_DIR = ROOT+'/phase_{}/'.format(phase_idx)
     mupump = np.genfromtxt(PHASE_DIR+'mu.dat')
     mupumpx = mupump[:, 1]
     mupumpy = mupump[:, 2]
@@ -115,29 +114,16 @@ for phase_idx in range(args.nphases):
     specs = np.zeros((nmaxspecs, fft0.size))
 
     for frame in range(nmaxspecs):
-        print(steps_ini+frame*ndump+1, steps_ini+frame*ndump+nsteps_spec+1)
+        print(steps_ini+frame*ndump, steps_ini+frame*ndump+nsteps_spec)
         os.chdir(PHASE_DIR+'probes/frame{}/'.format(frame))
         time, mux, muy, muz = loaddata(nsteps_spec)
-        if phase_idx == 0 and frame == 0:
-            plt.figure()
-            plt.plot(time+(steps_ini+frame*ndump)*dt, mux)
-            plt.plot(time_pu[steps_ini+frame*ndump: steps_ini+frame*ndump+nsteps_spec], mupumpx[steps_ini+frame*ndump: steps_ini+frame*ndump+nsteps_spec], 'r--')
-            plt.show()
-            plt.figure()
-            plt.plot(time, mux - mupumpx[steps_ini+frame*ndump: steps_ini+frame*ndump+nsteps_spec])
-            plt.show()
-
-        #mux = mux - mupumpx[steps_ini+frame*ndump+1: steps_ini+frame*ndump+nsteps_spec+1]
-        #muy = muy - mupumpy[steps_ini+frame*ndump+1: steps_ini+frame*ndump+nsteps_spec+1]
-        #muz = muz - mupumpz[steps_ini+frame*ndump+1: steps_ini+frame*ndump+nsteps_spec+1]
-        mux = mux - mupumpx[steps_ini+frame*ndump: steps_ini+frame*ndump+nsteps_spec]
-        muy = muy - mupumpy[steps_ini+frame*ndump: steps_ini+frame*ndump+nsteps_spec]
-        muz = muz - mupumpz[steps_ini+frame*ndump: steps_ini+frame*ndump+nsteps_spec]
+        mux = mux[:-1] - mupumpx[steps_ini+frame*ndump+2: steps_ini+frame*ndump+nsteps_spec+2]
+        muy = muy[:-1] - mupumpy[steps_ini+frame*ndump+2: steps_ini+frame*ndump+nsteps_spec+2]
+        muz = muz[:-1] - mupumpz[steps_ini+frame*ndump+2: steps_ini+frame*ndump+nsteps_spec+2]
         ave = (mux + muy + muz)/3.
-        time = time[:nsteps_spec]
-        freq, spec = runfft(ave, time, damping, cutoff_freq)
+        freq, spec = runfft(ave, time[:-1], damping, cutoff_freq)
         specs[frame, :] = spec.imag * freq * (-2./np.pi)
-    np.savetxt(ROOT+'spectra_ph{}.dat'.format(phase_idx), specs)
+    np.savetxt(ROOT+'/spectra_ph{}.dat'.format(phase_idx), specs)
 
-np.savetxt(ROOT+'delaytime.dat', dltime)
-np.savetxt(ROOT+'energy.dat', freq)
+np.savetxt(ROOT+'/delaytime.dat', dltime)
+np.savetxt(ROOT+'/energy.dat', freq)

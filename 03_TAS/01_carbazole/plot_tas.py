@@ -38,7 +38,7 @@ plt.savefig('gs_spectrum.png' , dpi=200)
 plt.show()
 
 fig, ax = plt.subplots(figsize=(9, 8))
-im = plotTasAxis(ax, tas_data.avespec, tas_data.energies, tas_data.delaytime)
+im = plotTasAxis(ax, tas_data.tas, tas_data.energies, tas_data.delaytime)
 fig.colorbar(im, ax=ax)
 ax.axvline(3.80, c='w', lw=3)
 ax.set_xlim(1.0, 8.0)

@@ -33,8 +33,8 @@ Hamiltonian = DFTB {
      }
      FieldStrength [v/a] = 0.01
      Pump = Yes
-     PumpProbeFrames = 8             # 1 probe every 4 fs
-     PumpProbeRange [fs] = 8.0 40.0  # delay times will cover a range of 32 fs
+     PumpProbeFrames = 10             # 1 probe every 4 fs
+     PumpProbeRange [fs] = 0.0 40.0  # delay times will cover a range of 32 fs
  }
 
 

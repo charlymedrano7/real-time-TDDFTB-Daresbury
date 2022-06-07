@@ -5,7 +5,7 @@ import os
 from scipy import constants
 import argparse
 import matplotlib.pyplot as plt
-hplanck = constants.physical_constants['Planck constant in eV s'][0] * 1.0E15
+hplanck = 4.1356676612 # eV.fs
 
 parser = argparse.ArgumentParser(description='Calculate pump-probe spectra from dipole trajectories')
 parser.add_argument('--dir-prefix', dest='pref', help='directory where the pump folders (phase_*) are')
@@ -76,6 +76,7 @@ nmaxspecs = nppframes
 print('steps ini', steps_ini)
 print('steps fin', steps_fin)
 print('ndump', ndump)
+
 def loaddata(nlines, onlyx=False):
     mux = np.loadtxt('mux.dat')
     muy = np.loadtxt('muy.dat')
@@ -103,6 +104,7 @@ freq0, fft0 = runfft(ave, time, damping, cutoff_freq)
 spec0 = fft0.imag * freq0 * (-2./np.pi)
 np.savetxt(ROOT+'/gs_spectrum.dat', spec0)
 
+all_spectra = []
 for phase_idx in range(args.nphases):
     PHASE_DIR = ROOT+'/phase_{}/'.format(phase_idx)
     mupump = np.genfromtxt(PHASE_DIR+'mu.dat')
@@ -114,7 +116,6 @@ for phase_idx in range(args.nphases):
     specs = np.zeros((nmaxspecs, fft0.size))
 
     for frame in range(nmaxspecs):
-        print(steps_ini+frame*ndump, steps_ini+frame*ndump+nsteps_spec)
         os.chdir(PHASE_DIR+'probes/frame{}/'.format(frame))
         time, mux, muy, muz = loaddata(nsteps_spec)
         mux = mux[:-1] - mupumpx[steps_ini+frame*ndump+2: steps_ini+frame*ndump+nsteps_spec+2]
@@ -123,7 +124,10 @@ for phase_idx in range(args.nphases):
         ave = (mux + muy + muz)/3.
         freq, spec = runfft(ave, time[:-1], damping, cutoff_freq)
         specs[frame, :] = spec.imag * freq * (-2./np.pi)
+    all_spectra.append(specs)
     np.savetxt(ROOT+'/spectra_ph{}.dat'.format(phase_idx), specs)
 
+avespec = sum(all_spectra[:])/args.nphases
+np.savetxt(ROOT+'/average_spec.dat', avespec)
 np.savetxt(ROOT+'/delaytime.dat', dltime)
 np.savetxt(ROOT+'/energy.dat', freq)

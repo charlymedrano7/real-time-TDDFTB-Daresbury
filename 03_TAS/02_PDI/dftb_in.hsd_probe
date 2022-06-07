@@ -15,7 +15,8 @@ Hamiltonian = DFTB {
     }
     SlaterKosterFiles = Type2FileNames {
 #        Prefix = "/Users/charly/SlaterKosterFiles/mio-1-1/"
-        Prefix = "/home/bonafefr/dftb_skf/mio-1-1/"
+#        Prefix = "/home/bonafefr/dftb_skf/mio-1-1/"
+#        Prefix = "/mnt/ceph/course_materials/param/slakos/mio-1-1/"
         Separator = "-"
         Suffix = ".skf"
     }
@@ -23,7 +24,7 @@ Hamiltonian = DFTB {
 }
 
  ElectronDynamics = {
-     Steps = 10000
+     Steps = 8000
      TimeStep [au] = 0.2
      Perturbation = Kick {
          PolarizationDirection = 'all'

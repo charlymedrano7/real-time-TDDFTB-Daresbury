@@ -26,24 +26,25 @@ done
 cd ..
 done
 
+export OMP_NUM_THREADS=2
 echo "Running GS spectrum"
 #run GS spectrum
 cd gs_spectrum
 sed '/[[:blank:]]Probe = Yes/d' ../dftb_in.hsd_probe > dftb_in.hsd
 $DFTB_PATH >& out.log
 cd ..
-
 echo "Done GS spectrum"
+
 echo "Running probes...."
 #run probes
-export OMP_NUM_THREADS=1
 for dir in $pumpdirs; do
 echo "Running probes in" $dir
 cd $dir/probes
 for ff in frame*; do
   cd $ff
-  $DFTB_PATH >& out.log
+  $DFTB_PATH >& out.log &
   cd ..
 done
+wait
 cd ../..
 done

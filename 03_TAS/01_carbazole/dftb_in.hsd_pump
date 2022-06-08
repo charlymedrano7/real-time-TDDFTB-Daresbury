@@ -14,14 +14,15 @@ Hamiltonian = DFTB {
     }
     SlaterKosterFiles = Type2FileNames {
 #        Prefix = "/Users/charly/SlaterKosterFiles/mio-1-1/"
-        Prefix = "/home/bonafefr/dftb_skf/mio-1-1/"
+#        Prefix = "/home/bonafefr/dftb_skf/mio-1-1/"
+#        Prefix = "/mnt/ceph/course_materials/param/slakos/mio-1-1/"
         Separator = "-"
         Suffix = ".skf"
     }
 }
 
  ElectronDynamics = {
-     Steps = 16700                   # 16700*0.2*0.024  = 80 fs total time
+     Steps = 18000                   # 16700*0.2*0.024  = 80 fs total time
      TimeStep [au] = 0.2
      Perturbation = Laser{
          PolarizationDirection = 1 0 0
@@ -29,12 +30,12 @@ Hamiltonian = DFTB {
          Phase = 0                   # VERY IMPORTANT: Phase must be present
      }
      EnvelopeShape = Sin2 {
-       Time1 [fs] = 8.0              # T = 1.08742 fs
+       Time1 [fs] = 10.0              # T = 1.08742 fs
      }
-     FieldStrength [v/a] = 0.01
+     FieldStrength [v/a] = 0.2
      Pump = Yes
-     PumpProbeFrames = 8             # 1 probe every 4 fs
-     PumpProbeRange [fs] = 8.0 40.0  # delay times will cover a range of 32 fs
+     PumpProbeFrames = 30             # 1 probe every 4 fs
+     PumpProbeRange [fs] = 10.0 40.0  # delay times will cover a range of 32 fs
  }
 
 

@@ -2,6 +2,7 @@ nphases=4                  #Number of phases
 pi=3.141592653589793       #Needed for the phases
 
 DFTB_PATH=/Users/charly/dftbplus/_build/app/dftb+/dftb+  #Path to executable
+#DFTB_PATH=/home/bonafefr/dftb_timeprop/_build/_install/bin/dftb+
 
 for i in $(seq 1 $nphases); do         #Create a folder for each phase       
   let ii=$i-1

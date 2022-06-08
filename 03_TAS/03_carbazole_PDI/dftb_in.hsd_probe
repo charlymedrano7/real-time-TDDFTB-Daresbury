@@ -11,6 +11,7 @@ Hamiltonian = DFTB {
         C = "p"
         H = "s"
 	N = "p"
+	O = "p"
     }
     SlaterKosterFiles = Type2FileNames {
 #        Prefix = "/Users/charly/SlaterKosterFiles/mio-1-1/"
@@ -23,7 +24,7 @@ Hamiltonian = DFTB {
 }
 
  ElectronDynamics = {
-     Steps = 8350
+     Steps = 10000
      TimeStep [au] = 0.2
      Perturbation = Kick {
          PolarizationDirection = 'all'

@@ -11,6 +11,7 @@ Hamiltonian = DFTB {
         C = "p"
         H = "s"
 	N = "p"
+	O = "p"
     }
     SlaterKosterFiles = Type2FileNames {
 #        Prefix = "/Users/charly/SlaterKosterFiles/mio-1-1/"
@@ -19,18 +20,24 @@ Hamiltonian = DFTB {
         Separator = "-"
         Suffix = ".skf"
     }
-    ReadInitialCharges = yes
 }
 
  ElectronDynamics = {
-     Steps = 8350
+     Steps = 18000                   
      TimeStep [au] = 0.2
-     Perturbation = Kick {
-         PolarizationDirection = 'all'
+     Perturbation = Laser{
+         PolarizationDirection = 1 0 0
+         LaserEnergy [nm] = 532.66
+         Phase = 0                   # VERY IMPORTANT: Phase must be present
      }
-     FieldStrength [v/a] = 0.001
-     Probe = Yes 
-}
+     EnvelopeShape = Sin2 {
+       Time1 [fs] = 10.0             
+     }
+     FieldStrength [v/a] = 0.1
+     Pump = Yes
+     PumpProbeFrames = 12             # 1 probe every 4 fs
+     PumpProbeRange [fs] = 10.0 34.0  # delay times will cover a range of 32 fs
+ }
 
 
 InputVersion = 21.2

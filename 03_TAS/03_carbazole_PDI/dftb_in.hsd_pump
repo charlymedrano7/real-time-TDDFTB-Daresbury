@@ -11,26 +11,33 @@ Hamiltonian = DFTB {
         C = "p"
         H = "s"
 	N = "p"
+	O = "p"
     }
     SlaterKosterFiles = Type2FileNames {
 #        Prefix = "/Users/charly/SlaterKosterFiles/mio-1-1/"
-#        Prefix = "/home/bonafefr/dftb_skf/mio-1-1/"
+€        Prefix = "/home/bonafefr/dftb_skf/mio-1-1/"
 #        Prefix = "/mnt/ceph/course_materials/param/slakos/mio-1-1/"
         Separator = "-"
         Suffix = ".skf"
     }
-    ReadInitialCharges = yes
 }
 
  ElectronDynamics = {
-     Steps = 8350
+     Steps = 20000
      TimeStep [au] = 0.2
-     Perturbation = Kick {
-         PolarizationDirection = 'all'
+     Perturbation = Laser{
+        PolarizationDirection = 1 0 0
+	LaserEnergy [nm] = 532.66
+        Phase = 0
+	}
+     EnvelopeShape = Sin2 {
+       Time1 [fs] = 8.0
      }
-     FieldStrength [v/a] = 0.001
-     Probe = Yes 
-}
+     FieldStrength [v/a] = 0.02
+     Pump = Yes
+     PumpProbeFrames = 12
+     PumpProbeRange [fs] = 0.0 48.0
+ }
 
 
 InputVersion = 21.2

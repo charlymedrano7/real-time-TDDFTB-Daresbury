@@ -16,7 +16,7 @@ def loadSpecs(ROOT, nphases):
     delay_time = np.genfromtxt(ROOT+'delaytime.dat')
     freq = np.genfromtxt(ROOT+'energy.dat')
     spec0_data = np.genfromtxt(ROOT+'gs_spectrum.dat')
-    spec0 = spec0_data[:,0]
+    spec0 = spec0_data[:,1]
     avespec = np.genfromtxt(ROOT+'average_spec.dat')
     return freq, delay_time, avespec, spec0
 

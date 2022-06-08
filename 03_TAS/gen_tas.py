@@ -102,7 +102,7 @@ time, mux, muy, muz = loaddata(nsteps_spec)
 ave = (mux-mux[0]+muy-muy[0]+muz-muz[0])/3.
 freq0, fft0 = runfft(ave, time, damping, cutoff_freq)
 spec0 = fft0.imag * freq0 * (-2./np.pi)
-np.savetxt(ROOT+'/gs_spectrum.dat', spec0)
+np.savetxt(ROOT+'/gs_spectrum.dat', np.transpose([freq0,spec0]))
 
 all_spectra = []
 for phase_idx in range(args.nphases):

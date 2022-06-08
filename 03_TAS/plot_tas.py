@@ -15,7 +15,8 @@ args = parser.parse_args()
 def loadSpecs(ROOT, nphases):
     delay_time = np.genfromtxt(ROOT+'delaytime.dat')
     freq = np.genfromtxt(ROOT+'energy.dat')
-    spec0 = np.genfromtxt(ROOT+'gs_spectrum.dat')
+    spec0_data = np.genfromtxt(ROOT+'gs_spectrum.dat')
+    spec0 = spec0_data[:,0]
     avespec = np.genfromtxt(ROOT+'average_spec.dat')
     return freq, delay_time, avespec, spec0
 
@@ -49,10 +50,11 @@ fig.colorbar(im, ax=ax)
 ax2 = fig.add_axes([0.12, 0.95, 0.63, 0.2])
 ax2.plot(tas_data.energies, tas_data.spec0, label='GS')
 ax2.plot(tas_data.energies, tas_data.avespec[-1], label='last recorded')
+ax2.legend()
 ax.set_xlim(args.en_range[0],args.en_range[1])
 ax2.set_xlim(args.en_range[0],args.en_range[1])
-ax.axvline(2.3, c='k', linestyle='--')
-ax2.axvline(2.3, c='k', linestyle='--')
+ax.axvline(args.pump_energy, c='k', linestyle='--')
+ax2.axvline(args.pump_energy, c='k', linestyle='--')
 
 ax3 = fig.add_axes([-0.15, 0.12, 0.2, 0.76])
 ax3.plot(tas_data.laser[:,0], tas_data.l_time)

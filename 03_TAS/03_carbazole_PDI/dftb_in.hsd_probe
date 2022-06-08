@@ -14,9 +14,7 @@ Hamiltonian = DFTB {
 	O = "p"
     }
     SlaterKosterFiles = Type2FileNames {
-#        Prefix = "/Users/charly/SlaterKosterFiles/mio-1-1/"
-#        Prefix = "/home/bonafefr/dftb_skf/mio-1-1/"
-#        Prefix = "/mnt/ceph/course_materials/param/slakos/mio-1-1/"
+        Prefix = "slakos/mio-1-1/"
         Separator = "-"
         Suffix = ".skf"
     }

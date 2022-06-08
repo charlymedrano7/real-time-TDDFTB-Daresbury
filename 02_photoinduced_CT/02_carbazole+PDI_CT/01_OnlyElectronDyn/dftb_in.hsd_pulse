@@ -32,6 +32,8 @@ Hamiltonian = DFTB {
         Time1 [fs] = 30.0
      }
      FieldStrength [v/a] = 0.02
+     WriteEnergyAndCharges = Yes
+     Populations = Yes
  }
 
 Options {

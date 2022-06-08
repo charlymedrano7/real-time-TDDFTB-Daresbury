@@ -1,9 +1,9 @@
-pumpdirs=$(ls -d phase_*)
+pumpdirs=$(ls -d phase_*)        #Where are the pumps
 
-DFTB_PATH=/mnt/ceph/course_materials/opt/dftbplus-main/bin/dftb+
-
-nFrames=$(ls phase_0/pump_frames/*ppdump.bin | wc -l)
-((nOk = $nFrames -1))
+DFTB_PATH=/mnt/ceph/course_materials/opt/dftbplus-main/bin/dftb+ #Path to executable
+nFrames=$(ls phase_0/pump_frames/*ppdump.bin | wc -l)   #Number of frames 
+((nOk = $nFrames -1))                                   #defined in the dftb_in.hsd_pump file
+>>>>>>> d90d1c081e3690e8963e6cd9d05e492656537fd4
 
 echo $nFrames "frames will be used"
 
@@ -17,7 +17,7 @@ for dir in $pumpdirs; do
 cd $dir
 mkdir probes
 
-for i in $(seq 0 $nOk); do
+for i in $(seq 0 $nOk); do       #Create probe for each frame
   mkdir probes/frame$i
   cp ../dftb_in.hsd_probe probes/frame$i/dftb_in.hsd
   cp coords.gen charges.bin probes/frame$i

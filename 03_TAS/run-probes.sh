@@ -3,7 +3,6 @@ pumpdirs=$(ls -d phase_*)        #Where are the pumps
 DFTB_PATH=/mnt/ceph/course_materials/opt/dftbplus-main/bin/dftb+ #Path to executable
 nFrames=$(ls phase_0/pump_frames/*ppdump.bin | wc -l)   #Number of frames 
 ((nOk = $nFrames -1))                                   #defined in the dftb_in.hsd_pump file
->>>>>>> d90d1c081e3690e8963e6cd9d05e492656537fd4
 
 echo $nFrames "frames will be used"
 
